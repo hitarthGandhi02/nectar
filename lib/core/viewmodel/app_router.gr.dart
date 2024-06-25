@@ -10,9 +10,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i16;
 import 'package:flutter/material.dart' as _i17;
+import 'package:nectar/core/model/product_model.dart' as _i18;
 import 'package:nectar/view/account/account_view.dart' as _i1;
 import 'package:nectar/view/cart/cart_view.dart' as _i3;
-import 'package:nectar/view/category_items/category_items.dart' as _i4;
+import 'package:nectar/view/category_items/category_items_view.dart' as _i4;
 import 'package:nectar/view/Explore/explore_view.dart' as _i5;
 import 'package:nectar/view/favorite/favorite_view.dart' as _i6;
 import 'package:nectar/view/filter/filter_view.dart' as _i7;
@@ -50,9 +51,11 @@ abstract class $AppRouter extends _i16.RootStackRouter {
       );
     },
     CategoryItems.name: (routeData) {
+      final args = routeData.argsAs<CategoryItemsArgs>(
+          orElse: () => const CategoryItemsArgs());
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.CategoryItems(),
+        child: _i4.CategoryItems(key: args.key),
       );
     },
     ExploreRoute.name: (routeData) {
@@ -124,9 +127,14 @@ abstract class $AppRouter extends _i16.RootStackRouter {
       );
     },
     ProductRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductRouteArgs>();
       return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.ProductView(),
+        child: _i15.ProductView(
+          key: args.key,
+          product: args.product,
+          index: args.index,
+        ),
       );
     },
   };
@@ -176,16 +184,31 @@ class CartRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.CategoryItems]
-class CategoryItems extends _i16.PageRouteInfo<void> {
-  const CategoryItems({List<_i16.PageRouteInfo>? children})
-      : super(
+class CategoryItems extends _i16.PageRouteInfo<CategoryItemsArgs> {
+  CategoryItems({
+    _i17.Key? key,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
           CategoryItems.name,
+          args: CategoryItemsArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CategoryItems';
 
-  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
+  static const _i16.PageInfo<CategoryItemsArgs> page =
+      _i16.PageInfo<CategoryItemsArgs>(name);
+}
+
+class CategoryItemsArgs {
+  const CategoryItemsArgs({this.key});
+
+  final _i17.Key? key;
+
+  @override
+  String toString() {
+    return 'CategoryItemsArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -390,14 +413,43 @@ class ProductSearchRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.ProductView]
-class ProductRoute extends _i16.PageRouteInfo<void> {
-  const ProductRoute({List<_i16.PageRouteInfo>? children})
-      : super(
+class ProductRoute extends _i16.PageRouteInfo<ProductRouteArgs> {
+  ProductRoute({
+    _i17.Key? key,
+    required _i18.ProductModel product,
+    required int index,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
           ProductRoute.name,
+          args: ProductRouteArgs(
+            key: key,
+            product: product,
+            index: index,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProductRoute';
 
-  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
+  static const _i16.PageInfo<ProductRouteArgs> page =
+      _i16.PageInfo<ProductRouteArgs>(name);
+}
+
+class ProductRouteArgs {
+  const ProductRouteArgs({
+    this.key,
+    required this.product,
+    required this.index,
+  });
+
+  final _i17.Key? key;
+
+  final _i18.ProductModel product;
+
+  final int index;
+
+  @override
+  String toString() {
+    return 'ProductRouteArgs{key: $key, product: $product, index: $index}';
+  }
 }

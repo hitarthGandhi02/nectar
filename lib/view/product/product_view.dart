@@ -1,14 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nectar/core/model/product_model.dart';
+import 'package:nectar/core/service/supabase_image.dart';
+import 'package:nectar/core/viewmodel/app_locator.dart';
 import 'package:nectar/view/login/login_view.dart';
+import 'package:nectar/view/product/product_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 @RoutePage()
 class ProductView extends StatelessWidget {
-  const ProductView({super.key});
+  final productProvider = ProductViewmodel();
+  ProductModel product;
+  int index;
+  ProductView({super.key, required this.product, required this.index});
   @override
   Widget build(BuildContext context) {
+    final productProvider = context.watch<ProductViewmodel>;
     PageController pageController = PageController();
     return Scaffold(
       body: ListView(
@@ -18,11 +27,17 @@ class ProductView extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.red),
             child: AppBar(
               backgroundColor: Colors.white,
-              leading:  IconButton(onPressed : () {Navigator.of(context).pop();}, icon:   Icon(Icons.arrow_back)),
-              actions: const [Padding(
-                padding: EdgeInsets.only(right: 15.0),
-                child: Icon(Icons.ios_share),
-              )],
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(Icons.arrow_back)),
+              actions: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 15.0),
+                  child: Icon(Icons.ios_share),
+                )
+              ],
             ),
           ),
           SizedBox(
@@ -30,11 +45,12 @@ class ProductView extends StatelessWidget {
             child: PageView(
               controller: pageController,
               children: [
-                Image.asset(
-                  "assets/images/product-example.png",
-                ),
-                Image.asset("assets/images/product-example.png"),
-                Image.asset("assets/images/product-example.png"),
+                Image.network(
+                    locator<SupabaseImage>().getImages(product.images[index])),
+                Image.network(
+                    locator<SupabaseImage>().getImages(product.images[index])),
+                Image.network(
+                    locator<SupabaseImage>().getImages(product.images[index])),
               ],
             ),
           ),
@@ -55,7 +71,7 @@ class ProductView extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,17 +80,23 @@ class ProductView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Natural Red Apple",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      product.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     Text(
-                      "1kg, Price",
+                      product.description,
                       style: TextStyle(color: Colors.grey),
                     )
                   ],
                 ),
-                Icon(Icons.favorite_border)
+                IconButton(onPressed: () {
+                  productProvider().productLiked(product);
+                  },
+                  icon: productProvider().isFavorite ? 
+                  Icon(Icons.favorite) :
+                  Icon(Icons.favorite_border_outlined)
+                  ) 
               ],
             ),
           ),
@@ -113,9 +135,10 @@ class ProductView extends StatelessWidget {
                     )
                   ],
                 ),
-                const Text(
-                  "\$4.99",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                Text(
+                  "\$${product.price}".toString(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 25),
                 )
               ],
             ),
@@ -161,7 +184,6 @@ class ProductView extends StatelessWidget {
               "Nutritions",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            
           ),
           const Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -183,14 +205,12 @@ class ProductView extends StatelessWidget {
               onRatingUpdate: (rating) {
                 print(rating);
               },
-              
             ),
             shape: Border(top: BorderSide(color: Colors.white)),
             title: Text(
               "Review",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            
           ),
           SizedBox(
             height: 23,

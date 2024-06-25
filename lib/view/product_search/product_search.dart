@@ -41,7 +41,7 @@ class ProductSearchView extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap:(){
-                      locator<AppRouter>().push(ProductRoute());
+                      // locator<AppRouter>().push(ProductRoute());
                     },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(15, 19, 14, 15),

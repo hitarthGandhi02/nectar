@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/core/service/Auth_service.dart';
 import 'package:nectar/core/viewmodel/cart_view_model.dart';
 import 'package:nectar/core/viewmodel/filter_viewmodel.dart';
 import 'package:nectar/core/viewmodel/location_view_model.dart';
 import 'package:nectar/core/viewmodel/login_view_model.dart';
-import 'package:nectar/view/filter/filter_view.dart';
-import 'package:nectar/view/home/home_view.dart';
+import 'package:nectar/view/category_items/category_view_model.dart';
+import 'package:nectar/view/favorite/favorite_view_model.dart';
 import 'package:nectar/view/home/homeview_model.dart';
+import 'package:nectar/view/product/product_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class AppProvider extends StatelessWidget {
@@ -32,6 +32,15 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<HomeViewModel>(
           create: (_) => HomeViewModel(), 
+        ),
+        ChangeNotifierProvider<CategoryViewModel>(
+          create: (_) => CategoryViewModel(), 
+        ),
+         ChangeNotifierProvider<FavoriteViewModel>(
+          create: (_) => FavoriteViewModel(), 
+        ),
+         ChangeNotifierProvider<ProductViewmodel>(
+          create: (_) => ProductViewmodel(), 
         ),
       ],
         child : child

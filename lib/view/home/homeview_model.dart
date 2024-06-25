@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/model/product_model.dart';
-import 'package:nectar/core/service/product_service.dart';
+import 'package:nectar/core/service/Supabase/product_service.dart';
 import 'package:nectar/core/viewmodel/app_locator.dart';
 
 class HomeViewModel extends ChangeNotifier{
@@ -11,15 +11,13 @@ class HomeViewModel extends ChangeNotifier{
   HomeViewModel(){
     getProducts();
   }
-
    final _productService = locator<ProductService>();
    void getProducts() async{
       try{
         _products = await _productService.getProducts();
-        print(products.toString());
+        // print(_products);
       }catch(e){
-
-        print(e);
+        throw (e);
       }
       notifyListeners();
    }

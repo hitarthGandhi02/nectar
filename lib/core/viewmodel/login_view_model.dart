@@ -22,7 +22,6 @@ class LoginViewModel extends ChangeNotifier {
 
   void navigateToPhoneView() {
     _router.push((PhoneRoute()));
-    print("object");
   }
   
 String? validateContactNumber(String? value) {  

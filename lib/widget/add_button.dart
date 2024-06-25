@@ -7,7 +7,7 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
+    return  Material(
       child: SizedBox(
         width: 30,
         child: Container(

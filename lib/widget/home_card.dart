@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/model/product_model.dart';
-import 'package:nectar/core/service/product_service.dart';
+import 'package:nectar/core/service/supabase_image.dart';
 import 'package:nectar/core/viewmodel/app_locator.dart';
 import 'package:nectar/core/viewmodel/app_router.dart';
 import 'package:nectar/core/viewmodel/app_router.gr.dart';
-import 'package:nectar/view/home/homeview_model.dart';
 import 'package:nectar/widget/add_button.dart';
-import 'package:provider/provider.dart';
-
 class HomeCard extends StatelessWidget {
-   HomeCard({super.key});
+  ProductModel product;
+  int index;
+   HomeCard({super.key, required this.product, required this.index});
   @override
 
   Widget build(BuildContext context) {
-        final homeViewProvider = context.watch<HomeViewModel>;
     return InkWell(
       onTap: () {
-        locator<AppRouter>().push(ProductRoute());
+        locator<AppRouter>().push(ProductRoute(product: product, index: index));
       },
       child: SizedBox(width: 132,
         child: Column(
+
           children: [
             Container(
               decoration: BoxDecoration(
@@ -33,14 +32,14 @@ class HomeCard extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.center,
-                      child: Image.asset("assets/images/card-example.png",)),
+                      child: Image.network(locator<SupabaseImage>().getImages(product.images[index]),height: 70,)),
                       const SizedBox(height: 5,),
-                    const Text("example",style: TextStyle(
+                     Text(product.name,style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18
                     ),),
-                   const Text("7pcs, Price", style: TextStyle(
+                    Text(product.description, style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
                     ),),
@@ -48,7 +47,7 @@ class HomeCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("\$4.99", style: TextStyle(
+                         Text(("\$${product.price}"), style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18
