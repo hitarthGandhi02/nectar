@@ -18,7 +18,6 @@ class FavoriteViewModel extends ChangeNotifier{
    Future<void> getFavorite() async{
       try{
         _favorite = await _favoriteService.getFavorite();
-        print(" this is favorite data : $favorite");
       }catch(e){
         throw (e);
       }

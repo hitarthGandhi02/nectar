@@ -5,7 +5,6 @@ import 'package:nectar/core/service/supabase_auth.dart';
 class ProductViewmodel extends ChangeNotifier{
   bool isFavorite = false;
   ProductViewmodel () {
-    print(isFavorite);
     if(supabase.from('product').select("is_favorite") == true) {
       isFavorite = true;
     }

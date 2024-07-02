@@ -6,9 +6,9 @@ import 'package:nectar/core/viewmodel/app_router.gr.dart';
 import 'package:nectar/widget/add_button.dart';
 
 class CategoryList extends StatelessWidget {
-  // int index;
+  int categoryId;
   // CategoryModel category;
-   CategoryList({super.key});
+   CategoryList({super.key, required this.categoryId});
 
   @override
   Widget build(BuildContext context) {

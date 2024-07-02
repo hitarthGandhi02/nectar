@@ -31,7 +31,7 @@ class ProductView extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(Icons.arrow_back)),
+                  icon: const Icon(Icons.arrow_back)),
               actions: const [
                 Padding(
                   padding: EdgeInsets.only(right: 15.0),
@@ -46,11 +46,11 @@ class ProductView extends StatelessWidget {
               controller: pageController,
               children: [
                 Image.network(
-                    locator<SupabaseImage>().getImages(product.images[index])),
+                    locator<SupabaseImage>().getImages(product.images[0])),
                 Image.network(
-                    locator<SupabaseImage>().getImages(product.images[index])),
+                    locator<SupabaseImage>().getImages(product.images[1])),
                 Image.network(
-                    locator<SupabaseImage>().getImages(product.images[index])),
+                    locator<SupabaseImage>().getImages(product.images[2])),
               ],
             ),
           ),
@@ -72,7 +72,7 @@ class ProductView extends StatelessWidget {
             height: 50,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -94,13 +94,13 @@ class ProductView extends StatelessWidget {
                   productProvider().productLiked(product);
                   },
                   icon: productProvider().isFavorite ? 
-                  Icon(Icons.favorite) :
-                  Icon(Icons.favorite_border_outlined)
+                  const Icon(Icons.favorite) :
+                  const   Icon(Icons.favorite_border_outlined)
                   ) 
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -110,15 +110,15 @@ class ProductView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10, right: 5),
-                      child: const Icon(
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 10, right: 5),
+                      child: Icon(
                         Icons.minimize,
                         size: 20,
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -143,11 +143,11 @@ class ProductView extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Divider(),
           ),
           const ExpansionTile(
@@ -166,27 +166,23 @@ class ProductView extends StatelessWidget {
             ],
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Divider(),
           ),
-          ExpansionTile(
+          const ExpansionTile(
             trailing: Chip(
-                label: Container(
-              // height: 5,
-              // width: 5,
-              child: Text(
-                "100gr",
-                style: TextStyle(fontSize: 9, color: Colors.grey),
-              ),
-            )),
-            shape: const Border(top: BorderSide(color: Colors.white)),
-            title: const Text(
+                label: Text(
+                  "100gr",
+                  style: TextStyle(fontSize: 9, color: Colors.grey),
+                )),
+            shape: Border(top: BorderSide(color: Colors.white)),
+            title: Text(
               "Nutritions",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Divider(),
           ),
           ExpansionTile(
@@ -198,21 +194,20 @@ class ProductView extends StatelessWidget {
               allowHalfRating: true,
               itemCount: 5,
               itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-              itemBuilder: (context, _) => Icon(
+              itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
               ),
               onRatingUpdate: (rating) {
-                print(rating);
               },
             ),
-            shape: Border(top: BorderSide(color: Colors.white)),
-            title: Text(
+            shape: const Border(top: BorderSide(color: Colors.white)),
+            title: const Text(
               "Review",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 23,
           ),
           PrimaryButton(
@@ -220,7 +215,7 @@ class ProductView extends StatelessWidget {
               color: Color.fromARGB(255, 83, 177, 117),
               icon: null,
               onPressed: null),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
         ],
